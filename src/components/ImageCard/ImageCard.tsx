@@ -1,6 +1,16 @@
+import { FC } from "react";
 import css from "./ImageCard.module.css";
 
-export default function ImageCard({ src, alt, openModal }) {
+interface ImageCardProps {
+  src: {
+    small: string;
+    regular: string;
+  };
+  alt: string;
+  openModal: (image: { src: string; alt: string }) => void; 
+}
+
+const ImageCard: FC<ImageCardProps> =({ src, alt, openModal }) =>{
   return (
     <>
       <img
@@ -12,3 +22,5 @@ export default function ImageCard({ src, alt, openModal }) {
     </>
   );
 }
+
+export default ImageCard

@@ -1,17 +1,10 @@
 import axios from "axios";
+import { Image } from "./components/App/App";
 
 const API_KEY = "KRNJhs0g10MZsM62FfXYN_CmaZP9RR3ihLQR1jBWkeU";
 axios.defaults.baseURL = "https://api.unsplash.com/";
 
-interface Image {
-  id: string;
-  description: string | null;
-  alt_description: string | null;
-  urls: {
-    small: string;
-    thumb: string;
-  };
-}
+
 
 interface Response {
   results: Image[];

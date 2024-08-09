@@ -8,37 +8,53 @@ import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import css from "./App.module.css";
 import { fetchImages } from "../../images-api";
 
-export default function App() {
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [topic, setTopic] = useState("");
-  const [totalPages, setTotalPages] = useState(0);
-  const [showLoadMore, setShowLoadMore] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalImage, setModalImage] = useState({});
-  const [isEmpty, setIsEmpty] = useState(false)
+export interface Image {
+  id: string;
+  description: string | null;
+  alt_description: string | null;
+  urls: {
+    regular: string;
+    small: string;
+  };
+}
 
-  async function handleSearch(query) {
+interface ImageModal {
+  src?: string;
+  alt?: string;
+}
+
+
+export default function App() {
+  const [images, setImages] = useState<Image[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [topic, setTopic] = useState<string>("");
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [showLoadMore, setShowLoadMore] = useState<boolean>(false);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [modalImage, setModalImage] = useState<ImageModal>({});
+  const [isEmpty, setIsEmpty] = useState<boolean>(false)
+
+  async function handleSearch(query: string) {
     setImages([]);
     setPage(1);
     setTopic(prevTopic => prevTopic === query ? query + ' ' : query);
     setShowLoadMore(false);
   }
 
-  function handleLoadMore() {
+  function handleLoadMore(): void {
     setPage((prevPage) => prevPage + 1);
   }
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setModalIsOpen(false);
     setModalImage({});
   };
 
-  const openModal = (image) => {
+  const openModal = (image: ImageModal): void => {
     setModalIsOpen(true);
-    setModalImage(image);
+    setModalImage(image);  
   };
 
   useEffect(() => {
@@ -66,9 +82,11 @@ export default function App() {
         setLoading(false);
       }
     }
-
     getImages();
+    
+    
   }, [page, topic]);
+  console.log(images);
 
   return (
     <div className={css.container}>
@@ -86,8 +104,8 @@ export default function App() {
       <ImageModal
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
-        src={modalImage.src}
-        alt={modalImage.alt}
+        src={modalImage.src || ''}
+        alt={modalImage.alt || ''}
       />
     </div>
   );

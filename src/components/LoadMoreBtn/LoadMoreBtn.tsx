@@ -1,6 +1,11 @@
+import { FC } from "react";
 import css from "./LoadMoreBtn.module.css";
 
-export default function LoadMoreBtn({ onSubmit }) {
+interface LoadMoreBtnProps {
+  onSubmit: ()=>void
+}
+
+ const LoadMoreBtn: FC<LoadMoreBtnProps> =({ onSubmit }) => {
   return (
     <div className={css.container}>
       <button className={css.btn} onClick={onSubmit} type="button">
@@ -9,3 +14,4 @@ export default function LoadMoreBtn({ onSubmit }) {
     </div>
   );
 }
+export default LoadMoreBtn;
