@@ -6,8 +6,8 @@ interface ImageCardProps {
     small: string;
     regular: string;
   };
-  alt: string;
-  openModal: (image: { src: string; alt: string }) => void; 
+  alt: string | null;
+  openModal: (image: { src: string; alt: string | null }) => void; 
 }
 
 const ImageCard: FC<ImageCardProps> =({ src, alt, openModal }) =>{
@@ -16,7 +16,7 @@ const ImageCard: FC<ImageCardProps> =({ src, alt, openModal }) =>{
       <img
         className={css.img}
         src={src.small}
-        alt={alt}
+        alt={alt ?? undefined}
         onClick={() => openModal({ src: src.regular, alt })}
       />
     </>

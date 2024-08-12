@@ -18,9 +18,9 @@ export interface Image {
   };
 }
 
-interface ImageModal {
+export interface ImageModal {
   src?: string;
-  alt?: string;
+  alt?: string | null;
 }
 
 
@@ -86,7 +86,6 @@ export default function App() {
     
     
   }, [page, topic]);
-  console.log(images);
 
   return (
     <div className={css.container}>
